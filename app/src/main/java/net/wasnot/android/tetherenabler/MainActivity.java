@@ -10,13 +10,17 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import butterknife.ButterKnife;
+import butterknife.InjectView;
 import butterknife.OnClick;
 
 
 public class MainActivity extends Activity {
+
+    @InjectView(R.id.textView)
+    public TextView mTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,13 +55,19 @@ public class MainActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateText();
+    }
+
     @OnClick(R.id.button)
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.button:
                 if (mBluetoothPanHelper != null) {
-                    Toast.makeText(this, "bt:" + mBluetoothPanHelper.isTetheringOn(),
-                            Toast.LENGTH_SHORT).show();
+                    mBluetoothPanHelper.setBluetoothTethering(!mBluetoothPanHelper.isTetheringOn());
+                    updateText();
                 }
                 break;
         }
@@ -69,10 +79,24 @@ public class MainActivity extends Activity {
             new BluetoothProfile.ServiceListener() {
                 public void onServiceConnected(int profile, BluetoothProfile proxy) {
                     mBluetoothPanHelper = new BluetoothPanHelper(proxy);
+                    updateText();
                 }
 
                 public void onServiceDisconnected(int profile) {
                     mBluetoothPanHelper = null;
                 }
             };
+
+    private void updateText() {
+        if (mTextView != null) {
+            if (mBluetoothPanHelper != null) {
+                mTextView.setText(
+                        "BT tether is " + (mBluetoothPanHelper.isTetheringOn() ? "enable"
+                                : "disable"));
+            } else {
+                mTextView.setText(
+                        "BT tether is known");
+            }
+        }
+    }
 }
