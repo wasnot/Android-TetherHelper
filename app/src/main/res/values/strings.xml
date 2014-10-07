@@ -5,4 +5,14 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
+    <!-- settings key -->
+    <string name="about_app_key">about_app</string>
+    <string name="enable_auto_bluetooth_tethering_key">enable_auto_bluetooth_tethering</string>
+    <!-- settings -->
+    <string name="about_app_title">About this application</string>
+    <string name="enable_auto_bluetooth_tethering_title">Auto BL tethering</string>
+    <string name="enable_auto_bluetooth_tethering_summary">Enable bluetooth tethering when device
+        booted.
+    </string>
+
 </resources>

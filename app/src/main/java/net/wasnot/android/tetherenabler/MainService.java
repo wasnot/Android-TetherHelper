@@ -6,11 +6,17 @@ import net.wasnot.android.tetherenabler.helper.BluetoothProfileHelper;
 import android.app.Service;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothProfile;
+import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
+import android.util.Log;
 
 public class MainService extends Service {
-    private static final String ACTION_BT_TETHER="net.wasnot.android.tether.ACTION_BT_TETHER";
+
+    private static final String TAG = MainService.class.getSimpleName();
+    public static final String ACTION_BT_TETHER = "net.wasnot.android.tether.ACTION_BT_TETHER";
+
+    private boolean mSetEnable = false;
 
     public MainService() {
     }
@@ -33,10 +39,16 @@ public class MainService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        if(intent==null)
-        return super.onStartCommand(intent, flags, startId);
-        if(ACTION_BT_TETHER.equals(intent.getAction())){
-
+        Log.d(TAG, "onStartCommand " + intent);
+        if (intent == null) {
+            return super.onStartCommand(intent, flags, startId);
+        }
+        if (ACTION_BT_TETHER.equals(intent.getAction())) {
+            if (mBluetoothPanHelper != null) {
+                mBluetoothPanHelper.setBluetoothTethering(true);
+            } else {
+                mSetEnable = true;
+            }
         }
         return super.onStartCommand(intent, flags, startId);
     }
@@ -52,11 +64,20 @@ public class MainService extends Service {
             new BluetoothProfile.ServiceListener() {
                 public void onServiceConnected(int profile, BluetoothProfile proxy) {
                     mBluetoothPanHelper = new BluetoothPanHelper(proxy);
-                    updateText();
+//                    updateText();
+                    if (mSetEnable) {
+                        mBluetoothPanHelper.setBluetoothTethering(true);
+                    }
                 }
 
                 public void onServiceDisconnected(int profile) {
                     mBluetoothPanHelper = null;
                 }
             };
+
+    public static void enableBtTether(Context con) {
+        Intent i = new Intent(con, MainService.class);
+        i.setAction(MainService.ACTION_BT_TETHER);
+        con.startService(i);
+    }
 }
