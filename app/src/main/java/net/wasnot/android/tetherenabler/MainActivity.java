@@ -1,5 +1,8 @@
 package net.wasnot.android.tetherenabler;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 import net.wasnot.android.tetherenabler.helper.BluetoothPanHelper;
 import net.wasnot.android.tetherenabler.helper.BluetoothProfileHelper;
 
@@ -9,17 +12,11 @@ import android.bluetooth.BluetoothProfile;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.hardware.usb.UsbManager;
-import android.net.ConnectivityManager;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-
-import java.util.ArrayList;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -30,6 +27,8 @@ public class MainActivity extends Activity {
 
     @InjectView(R.id.textView)
     public TextView mTextView;
+    @InjectView(R.id.adView)
+    public AdView mAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +41,9 @@ public class MainActivity extends Activity {
             adapter.getProfileProxy(getApplicationContext(), mProfileServiceListener,
                     BluetoothProfileHelper.PAN);
         }
+
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 
 
@@ -163,11 +165,11 @@ public class MainActivity extends Activity {
         }
     }
 
+    private class TetherChangeReceiver extends BroadcastReceiver {
 
-//    private class TetherChangeReceiver extends BroadcastReceiver {
-//        @Override
-//        public void onReceive(Context content, Intent intent) {
-//            String action = intent.getAction();
+        @Override
+        public void onReceive(Context content, Intent intent) {
+            String action = intent.getAction();
 //            if (action.equals(ConnectivityManager.ACTION_TETHER_STATE_CHANGED)) {
 //                // TODO - this should understand the interface types
 //                ArrayList<String> available = intent.getStringArrayListExtra(
@@ -188,26 +190,27 @@ public class MainActivity extends Activity {
 //            } else if (action.equals(UsbManager.ACTION_USB_STATE)) {
 //                mUsbConnected = intent.getBooleanExtra(UsbManager.USB_CONNECTED, false);
 //                updateState();
-//            } else if (action.equals(BluetoothAdapter.ACTION_STATE_CHANGED)) {
+//            } else
+            if (action.equals(BluetoothAdapter.ACTION_STATE_CHANGED)) {
 //                if (mBluetoothEnableForTether) {
-//                    switch (intent
-//                            .getIntExtra(BluetoothAdapter.EXTRA_STATE, BluetoothAdapter.ERROR)) {
-//                        case BluetoothAdapter.STATE_ON:
-//                            mBluetoothPan.setBluetoothTethering(true);
+                switch (intent
+                        .getIntExtra(BluetoothAdapter.EXTRA_STATE, BluetoothAdapter.ERROR)) {
+                    case BluetoothAdapter.STATE_ON:
+                        mBluetoothPanHelper.setBluetoothTethering(true);
 //                            mBluetoothEnableForTether = false;
-//                            break;
-//
-//                        case BluetoothAdapter.STATE_OFF:
-//                        case BluetoothAdapter.ERROR:
+                        break;
+
+                    case BluetoothAdapter.STATE_OFF:
+                    case BluetoothAdapter.ERROR:
 //                            mBluetoothEnableForTether = false;
-//                            break;
-//
-//                        default:
-//                            // ignore transition states
-//                    }
+                        break;
+
+                    default:
+                        // ignore transition states
+                }
 //                }
 //                updateState();
-//            }
-//        }
-//    }
+            }
+        }
+    }
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">TetherEnabler</string>
+    <string name="app_name">TetherHelper</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
@@ -13,6 +13,26 @@
     <string name="enable_auto_bluetooth_tethering_title">Auto BL tethering</string>
     <string name="enable_auto_bluetooth_tethering_summary">Enable bluetooth tethering when device
         booted.
+    </string>
+    <!-- about app -->
+    <string name="about_app_app_version">App version:</string>
+    <string name="about_app_detail">
+        Thank you downloaded. \n
+        This app is an auxiliary application for switching convenient tethering set of Android
+        devices.\n
+        Current features, bluetooth tethering auto-enable the terminal startup.\n
+        \n
+        For verification devices is low, it may does not work.\n
+        We will respond if you can feedback.\n
+        Thank you very much in advance.\n
+        \n
+        Function planning to add future\n
+        • Automatic switching of the Wi-Fi tethering\n
+        • Switching from the notification / widget\n
+        • Switching from the Android Wear\n
+        • Automatic switching of USB tethering(requires rooted)\n
+        \n
+        @wasnot_apps\n
     </string>
 
 </resources>

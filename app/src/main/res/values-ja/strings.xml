@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">テザリングヘルパー</string>
+
+    <!-- settings -->
+    <string name="about_app_title">このアプリについて</string>
+    <string name="enable_auto_bluetooth_tethering_title">自動Bluetoothテザリング</string>
+    <string name="enable_auto_bluetooth_tethering_summary">端末起動時に自動でbluetoothテザリングを有効にします。
+    </string>
+    <!-- about app -->
+    <string name="about_app_app_version">アプリバージョン：</string>
+    <string name="about_app_detail">
+        ダウンロードありがとうございます。\n
+        このアプリはAndroid端末のテザリング設定を便利に切り替えるための補助アプリです。\n
+        現在の機能は、端末起動時のbluetoothテザリング自動有効です。\n
+        \n
+        検証端末が少ないため、動作しない場合があります。\n
+        フィードバックいただければ対応させていただきます。\n
+        よろしくお願いします。\n
+        \n
+        今後追加する予定の機能\n
+        ・Wi-Fiテザリングの自動切り替え\n
+        ・通知/ウィジェットからの切り替え\n
+        ・Android Wearからの切り替え\n
+        ・USBテザリングの自動切り替え(要root)\n
+        \n
+        @wasnot_apps\n
+    </string>
+</resources>
