@@ -5,11 +5,11 @@ android {
     buildToolsVersion '20.0.0'
 
     defaultConfig {
-        applicationId "net.wasnot.android.tetherenabler"
+        applicationId "net.wasnot.android.tetherhelper"
         minSdkVersion 16
         targetSdkVersion 20
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
     }
     buildTypes {
         release {
@@ -22,4 +22,5 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.jakewharton:butterknife:5.1.1'
+    compile 'com.google.android.gms:play-services:5.2.08'
 }
