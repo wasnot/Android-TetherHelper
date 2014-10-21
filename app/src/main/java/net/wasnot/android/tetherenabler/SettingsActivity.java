@@ -18,6 +18,7 @@ import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 public class SettingsActivity extends PreferenceActivity
         implements Preference.OnPreferenceClickListener {
@@ -94,6 +95,8 @@ public class SettingsActivity extends PreferenceActivity
             AlertDialog.Builder b = new AlertDialog.Builder(this);
             b.setTitle(R.string.about_app_title);
             View v = getLayoutInflater().inflate(R.layout.dialog_about_app, null);
+            ((TextView) v.findViewById(R.id.appVersionText)).setText(
+                    getString(R.string.about_app_app_version) + AppUtil.getVersionName(this));
             b.setView(v);
             b.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                 @Override

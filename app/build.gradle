@@ -5,7 +5,7 @@ android {
     buildToolsVersion '20.0.0'
 
     defaultConfig {
-        applicationId "net.wasnot.android.tetherenabler"
+        applicationId "net.wasnot.android.tetherhelper"
         minSdkVersion 16
         targetSdkVersion 20
         versionCode 1
